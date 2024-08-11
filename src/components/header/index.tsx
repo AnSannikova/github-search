@@ -11,7 +11,7 @@ const Header: FC = () => {
 
 	return (
 		<header className={styles.header}>
-			<Box maxWidth={1440} sx={{ margin: '0 auto', display: 'flex', gap: 1 }}>
+			<Box sx={{ display: 'flex', gap: 1 }}>
 				<TextField
 					id="outlined-basic"
 					variant="outlined"
