@@ -23,7 +23,7 @@ const MainPage: FC = () => {
 				{repositories.length > 0 ? (
 					<SearchResult items={repositories} />
 				) : (
-					<Box>
+					<Box sx={{ margin: '0 auto', display: 'flex', alignItems: 'center' }}>
 						<h1 className={styles.title}>Добро пожаловать</h1>
 					</Box>
 				)}

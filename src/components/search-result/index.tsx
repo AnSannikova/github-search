@@ -15,7 +15,6 @@ const SearchResult: FC<{ items: TRepository[] }> = ({ items }) => {
 		<Box
 			component={'section'}
 			sx={{
-				height: '100%',
 				width: '100%',
 				display: 'flex',
 				justifyContent: 'center',
@@ -25,7 +24,14 @@ const SearchResult: FC<{ items: TRepository[] }> = ({ items }) => {
 				<Loader />
 			) : (
 				<>
-					<Box sx={{ width: '66.7%', padding: '24px 16px 0 32px' }}>
+					<Box
+						sx={{
+							width: '66.7%',
+							padding: '24px 16px 0 32px',
+							display: 'flex',
+							flexDirection: 'column',
+						}}
+					>
 						<h1 className={styles.title}>Результаты поиска</h1>
 						<ResultTable
 							rows={items}

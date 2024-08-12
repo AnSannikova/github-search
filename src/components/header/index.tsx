@@ -32,13 +32,14 @@ const Header: FC = () => {
 						'& .MuiInputBase-root': {
 							fontWeight: 500,
 							fontSize: '14px',
-							lineHeight: '1.71',
+							lineHeight: '24px',
 							letterSpacing: '0.17px',
 							color: 'rgba(0, 0, 0, 0.87)',
 							backgroundColor: '#fff',
 						},
 						'& .MuiInputBase-input': {
 							padding: '9px 16px',
+							height: 'auto',
 						},
 						'& .MuiInputBase-input::placeholder': {
 							fontStyle: 'italic',
