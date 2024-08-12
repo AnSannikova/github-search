@@ -1,8 +1,9 @@
-import { Box, Stack } from '@mui/material';
 import { FC } from 'react';
-import styles from './styles.module.scss';
-import { TRepInfo } from './types';
+import { Box } from '@mui/material';
 import Star from '@mui/icons-material/Star';
+import { TRepInfo } from './types';
+import { v4 as uuidv4 } from 'uuid';
+import styles from './styles.module.scss';
 
 const RepInfo: FC<TRepInfo> = ({ currentRep }) => {
 	return (
@@ -24,7 +25,9 @@ const RepInfo: FC<TRepInfo> = ({ currentRep }) => {
 							alignItems: 'center',
 						}}
 					>
-						<p className={styles.lable}>{currentRep.language}</p>
+						{currentRep.language !== null && (
+							<p className={styles.lable}>{currentRep.language}</p>
+						)}
 						<Box sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
 							<Star sx={{ color: '#FFB400' }} />
 							<span className={styles.text}>
@@ -33,16 +36,21 @@ const RepInfo: FC<TRepInfo> = ({ currentRep }) => {
 						</Box>
 					</Box>
 					<p className={styles.text}>{currentRep.description}</p>
-					{currentRep.topics.length > 0 && (
-						<Stack
-							direction={'row'}
-							spacing={1}
-							sx={{ marginBlockEnd: '24px' }}
+					{currentRep.topics && currentRep.topics.length > 0 && (
+						<Box
+							sx={{
+								marginBlockEnd: '24px',
+								display: 'flex',
+								flexWrap: 'wrap',
+								gap: '8px',
+							}}
 						>
 							{currentRep.topics.map((item) => (
-								<span className={styles.topic}>{item}</span>
+								<span key={uuidv4()} className={styles.topic}>
+									{item}
+								</span>
 							))}
-						</Stack>
+						</Box>
 					)}
 					<p className={styles.text}>{currentRep.license?.name}</p>
 				</Box>

@@ -29,7 +29,7 @@ const ResultTable: FC<TResultTable> = ({ rows, currentRow, onRowClick }) => {
 							hover={true}
 							onClick={() => onRowClick(row.id)}
 							selected={row.id === currentRow}
-							key={row.name}
+							key={row.id}
 						>
 							<TableCell component="th" scope="row">
 								{row.name}

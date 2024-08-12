@@ -1,17 +1,25 @@
-import { Box, Button, TextField } from '@mui/material';
-import { FC, useState } from 'react';
+import { Button, TextField } from '@mui/material';
+import { FC, FormEvent, useState } from 'react';
 import styles from './styles.module.scss';
+import { useDispatch } from '../../services/store';
+import { getRepositoriesThunk } from '../../services/repSlice';
 
 const Header: FC = () => {
 	const [value, setValue] = useState('');
+	const dispatch = useDispatch();
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setValue(e.target.value);
 	};
 
+	const onSubmitForm = (evt: FormEvent) => {
+		evt.preventDefault();
+		dispatch(getRepositoriesThunk(value));
+	};
+
 	return (
 		<header className={styles.header}>
-			<Box sx={{ display: 'flex', gap: 1 }}>
+			<form className={styles.form} onSubmit={onSubmitForm}>
 				<TextField
 					id="outlined-basic"
 					variant="outlined"
@@ -37,8 +45,14 @@ const Header: FC = () => {
 						},
 					}}
 				/>
-				<Button variant="contained">Искать</Button>
-			</Box>
+				<Button
+					type={'submit'}
+					variant="contained"
+					sx={{ padding: '8px 22px', fontSize: '15px', lineHeight: 1.73 }}
+				>
+					Искать
+				</Button>
+			</form>
 		</header>
 	);
 };

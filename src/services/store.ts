@@ -9,7 +9,7 @@ import { repReducer } from './repSlice';
 
 const store = configureStore({
 	reducer: {
-		rep: repReducer,
+		repositories: repReducer,
 	},
 });
 

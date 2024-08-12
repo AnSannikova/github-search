@@ -1,8 +1,6 @@
-import { Box } from '@mui/material';
 import { FC } from 'react';
+import styles from './styles.module.scss';
 
-const Footer: FC = () => (
-	<Box sx={{ width: '100%', minHeight: '32px', backgroundColor: '#4f4f4f' }} />
-);
+const Footer: FC = () => <footer className={styles.footer}></footer>;
 
 export default Footer;
