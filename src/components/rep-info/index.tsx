@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Box } from '@mui/material';
+import { Box, Link } from '@mui/material';
 import Star from '@mui/icons-material/Star';
 import { TRepInfo } from './types';
 import { v4 as uuidv4 } from 'uuid';
@@ -53,6 +53,9 @@ const RepInfo: FC<TRepInfo> = ({ currentRep }) => {
 						</Box>
 					)}
 					<p className={styles.text}>{currentRep.license?.name}</p>
+					<Link target={'_blank'} href={currentRep.html_url}>
+						Ссылка на github
+					</Link>
 				</Box>
 			) : (
 				<Box

@@ -8,6 +8,7 @@ export type TRepository = {
 	forks_count: number;
 	topics?: string[] | undefined;
 	license: TLicense | null;
+	html_url: string;
 };
 
 type TLicense = {

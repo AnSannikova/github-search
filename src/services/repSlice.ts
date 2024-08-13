@@ -1,30 +1,48 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TRepository } from '../utils/types';
 import { getRepositoriesApi } from '../utils/api';
 
 type TRepositoriesState = {
+	searchWord: string;
 	items: Array<TRepository>;
+	totalCount: number;
 	loading: boolean;
 	error: string | null | undefined;
 };
 
 const initialState: TRepositoriesState = {
+	searchWord: '',
 	items: [],
+	totalCount: 0,
 	loading: true,
 	error: null,
 };
 
 export const getRepositoriesThunk = createAsyncThunk(
 	'repositories/getRepositories',
-	async (name: string) => getRepositoriesApi(name)
+	async ({
+		name,
+		page = 1,
+		perPage = 10,
+	}: {
+		name: string;
+		page?: number;
+		perPage?: number;
+	}) => getRepositoriesApi(name, page, perPage)
 );
 
 const repSlice = createSlice({
 	name: 'repositories',
 	initialState,
-	reducers: {},
+	reducers: {
+		addSearchWord: (state, action: PayloadAction<string>) => {
+			state.searchWord = action.payload;
+		},
+	},
 	selectors: {
+		getSearchWord: (state) => state.searchWord,
 		getRepositoriesSelector: (state) => state.items,
+		getTotalCountSelector: (state) => state.totalCount,
 		getLoadingSelector: (state) => state.loading,
 	},
 	extraReducers: (builder) => {
@@ -40,10 +58,16 @@ const repSlice = createSlice({
 			.addCase(getRepositoriesThunk.fulfilled, (state, action) => {
 				state.loading = false;
 				state.items = [...action.payload.data.items];
+				state.totalCount = action.payload.data.total_count;
 			});
 	},
 });
 
 export const repReducer = repSlice.reducer;
-export const { getRepositoriesSelector, getLoadingSelector } =
-	repSlice.selectors;
+export const { addSearchWord } = repSlice.actions;
+export const {
+	getSearchWord,
+	getRepositoriesSelector,
+	getTotalCountSelector,
+	getLoadingSelector,
+} = repSlice.selectors;

@@ -2,7 +2,7 @@ import { Button, TextField } from '@mui/material';
 import { FC, FormEvent, useState } from 'react';
 import styles from './styles.module.scss';
 import { useDispatch } from '../../services/store';
-import { getRepositoriesThunk } from '../../services/repSlice';
+import { addSearchWord, getRepositoriesThunk } from '../../services/repSlice';
 
 const Header: FC = () => {
 	const [value, setValue] = useState('');
@@ -14,7 +14,8 @@ const Header: FC = () => {
 
 	const onSubmitForm = (evt: FormEvent) => {
 		evt.preventDefault();
-		dispatch(getRepositoriesThunk(value));
+		dispatch(addSearchWord(value));
+		dispatch(getRepositoriesThunk({ name: value }));
 	};
 
 	return (
