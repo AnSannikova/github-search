@@ -1,13 +1,33 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { MainPage } from './pages';
-
-const router = createBrowserRouter([
-	{
-		path: '/',
-		Component: MainPage,
-	},
-]);
+import { Box, CssBaseline } from '@mui/material';
+import { Footer, Header, SearchResult } from './components';
+import { useSelector } from './services/store';
+import { getRepositoriesSelector } from './services/repSlice';
+import styles from './styles.module.scss';
 
 export default function App() {
-	return <RouterProvider router={router} />;
+	const repositories = useSelector(getRepositoriesSelector);
+
+	return (
+		<Box
+			sx={{
+				minHeight: '100dvh',
+				display: 'flex',
+				flexDirection: 'column',
+				justifyContent: 'space-between',
+			}}
+		>
+			<CssBaseline />
+			<Header />
+			<main className={styles.main}>
+				{repositories.length > 0 ? (
+					<SearchResult items={repositories} />
+				) : (
+					<Box sx={{ margin: '0 auto', display: 'flex', alignItems: 'center' }}>
+						<h1 className={styles.title}>Добро пожаловать</h1>
+					</Box>
+				)}
+			</main>
+			<Footer />
+		</Box>
+	);
 }

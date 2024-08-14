@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TRepository } from '../utils/types';
+import { TGetRepositoriesApi, TRepository } from '../utils/types';
 import { getRepositoriesApi } from '../utils/api';
 
 type TRepositoriesState = {
@@ -20,15 +20,8 @@ const initialState: TRepositoriesState = {
 
 export const getRepositoriesThunk = createAsyncThunk(
 	'repositories/getRepositories',
-	async ({
-		name,
-		page = 1,
-		perPage = 10,
-	}: {
-		name: string;
-		page?: number;
-		perPage?: number;
-	}) => getRepositoriesApi(name, page, perPage)
+	async ({ name, page, perPage, sortType, order }: TGetRepositoriesApi) =>
+		getRepositoriesApi({ name, page, perPage, sortType, order })
 );
 
 const repSlice = createSlice({

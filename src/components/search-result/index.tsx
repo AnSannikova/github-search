@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
-import styles from './styles.module.scss';
 import RepInfo from '../rep-info';
 import ResultTable from '../result-table';
-import { TRepository } from '../../utils/types';
 import Loader from '../loader';
+import { TCellOrder, TSortType } from '../../utils/types';
+import { CellSort, TSearchResult } from './types';
 import { useDispatch, useSelector } from '../../services/store';
 import {
 	getLoadingSelector,
@@ -12,8 +12,9 @@ import {
 	getSearchWord,
 	getTotalCountSelector,
 } from '../../services/repSlice';
+import styles from './styles.module.scss';
 
-const SearchResult: FC<{ items: TRepository[] }> = ({ items }) => {
+const SearchResult: FC<TSearchResult> = ({ items }) => {
 	const isLoading = useSelector(getLoadingSelector);
 	const totalCountPage = useSelector(getTotalCountSelector);
 	const searchWord = useSelector(getSearchWord);
@@ -21,9 +22,19 @@ const SearchResult: FC<{ items: TRepository[] }> = ({ items }) => {
 	const [currentRep, setCurrentRep] = useState(0);
 	const [page, setPage] = useState(0);
 	const [perPage, setPerPage] = useState(10);
+	const [sortedBy, setSortedBy] = useState<TSortType | undefined>(undefined);
+
+	const initialCellOrder: TCellOrder = {
+		stars: 'desc',
+		forks: 'desc',
+		updated: 'desc',
+	};
+
+	const [cellOrder, setCellOrder] = useState<TCellOrder>(initialCellOrder);
 
 	useEffect(() => {
 		setPage(0);
+		setSortedBy(undefined);
 	}, [searchWord]);
 
 	const handleChangePage = (
@@ -32,7 +43,13 @@ const SearchResult: FC<{ items: TRepository[] }> = ({ items }) => {
 	) => {
 		setPage(newPage);
 		dispatch(
-			getRepositoriesThunk({ name: searchWord, page: newPage + 1, perPage })
+			getRepositoriesThunk({
+				name: searchWord,
+				page: newPage + 1,
+				perPage,
+				sortType: sortedBy,
+				order: sortedBy && cellOrder[sortedBy],
+			})
 		);
 	};
 
@@ -40,7 +57,32 @@ const SearchResult: FC<{ items: TRepository[] }> = ({ items }) => {
 		const perPage = parseInt(event.target.value, 10);
 		setPerPage(perPage);
 		setPage(0);
-		dispatch(getRepositoriesThunk({ name: searchWord, page: 1, perPage }));
+		dispatch(
+			getRepositoriesThunk({
+				name: searchWord,
+				page: 1,
+				perPage,
+				sortType: sortedBy,
+				order: sortedBy && cellOrder[sortedBy],
+			})
+		);
+	};
+
+	const handleChangeSortedBy = (sortType: TSortType) => {
+		const orderCell =
+			cellOrder[sortType] === 'desc' && sortType === sortedBy ? 'asc' : 'desc';
+		setSortedBy(sortType);
+		setPage(0);
+		setCellOrder({ ...cellOrder, [CellSort[sortType]]: orderCell });
+		dispatch(
+			getRepositoriesThunk({
+				name: searchWord,
+				page: 1,
+				perPage,
+				sortType: sortType,
+				order: orderCell,
+			})
+		);
 	};
 
 	return (
@@ -74,6 +116,9 @@ const SearchResult: FC<{ items: TRepository[] }> = ({ items }) => {
 							handleChangePage={handleChangePage}
 							perPage={perPage}
 							handleChangePerPage={handleChangePerPage}
+							sortedBy={sortedBy}
+							onHeadCellClick={handleChangeSortedBy}
+							cellOrder={cellOrder}
 						/>
 					</Box>
 					<Box sx={{ width: '33.3%' }}>

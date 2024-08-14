@@ -19,3 +19,21 @@ type TLicense = {
 	node_id: string;
 	html_url?: string | undefined;
 };
+
+export type TSortType = 'stars' | 'forks' | 'updated';
+
+export type TOrder = 'desc' | 'asc';
+
+export type TGetRepositoriesApi = {
+	name: string;
+	page?: number;
+	perPage?: number;
+	sortType?: TSortType | undefined;
+	order?: TOrder;
+};
+
+export type TCellOrder = {
+	stars: TOrder;
+	forks: TOrder;
+	updated: TOrder;
+};
