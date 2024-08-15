@@ -1,3 +1,4 @@
+// описание получаемых данных репозитория
 export type TRepository = {
 	id: number;
 	name: string;
@@ -20,20 +21,17 @@ type TLicense = {
 	html_url?: string | undefined;
 };
 
+// варианты сортировки данных
 export type TSortType = 'stars' | 'forks' | 'updated';
 
+// варианты направления сортировки
 export type TOrder = 'desc' | 'asc';
 
+// типы данных для отправки запроса
 export type TGetRepositoriesApi = {
 	name: string;
 	page?: number;
 	perPage?: number;
 	sortType?: TSortType | undefined;
 	order?: TOrder;
-};
-
-export type TCellOrder = {
-	stars: TOrder;
-	forks: TOrder;
-	updated: TOrder;
 };

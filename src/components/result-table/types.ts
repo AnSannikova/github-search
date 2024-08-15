@@ -1,4 +1,5 @@
-import { TCellOrder, TOrder, TRepository, TSortType } from '../../utils/types';
+import { TOrder, TRepository, TSortType } from '../../utils/types';
+import { TCellOrder } from '../search-result/types';
 
 export type TSortCell = {
 	data: string;

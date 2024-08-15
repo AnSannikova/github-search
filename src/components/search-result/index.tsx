@@ -3,8 +3,8 @@ import { FC, useEffect, useState } from 'react';
 import RepInfo from '../rep-info';
 import ResultTable from '../result-table';
 import Loader from '../loader';
-import { TCellOrder, TSortType } from '../../utils/types';
-import { CellSort, TSearchResult } from './types';
+import { TSortType } from '../../utils/types';
+import { CellSort, TSearchResult, TCellOrder } from './types';
 import { useDispatch, useSelector } from '../../services/store';
 import {
 	getLoadingSelector,
@@ -23,14 +23,11 @@ const SearchResult: FC<TSearchResult> = ({ items }) => {
 	const [page, setPage] = useState(0);
 	const [perPage, setPerPage] = useState(10);
 	const [sortedBy, setSortedBy] = useState<TSortType | undefined>(undefined);
-
-	const initialCellOrder: TCellOrder = {
+	const [cellOrder, setCellOrder] = useState<TCellOrder>({
 		stars: 'desc',
 		forks: 'desc',
 		updated: 'desc',
-	};
-
-	const [cellOrder, setCellOrder] = useState<TCellOrder>(initialCellOrder);
+	});
 
 	useEffect(() => {
 		setPage(0);

@@ -1,4 +1,4 @@
-import { TRepository } from '../../utils/types';
+import { TOrder, TRepository } from '../../utils/types';
 
 export enum CellSort {
 	stars = 'stars',
@@ -8,4 +8,10 @@ export enum CellSort {
 
 export type TSearchResult = {
 	items: TRepository[];
+};
+
+export type TCellOrder = {
+	stars: TOrder;
+	forks: TOrder;
+	updated: TOrder;
 };
