@@ -1,10 +1,13 @@
+import { FC } from 'react';
 import { Box, CssBaseline } from '@mui/material';
-import { Footer, Header, SearchResult } from './components';
-import { useSelector } from './services/store';
-import { getRepositoriesSelector } from './services/repSlice';
+import Header from '../header';
+import SearchResult from '../search-result';
+import Footer from '../footer';
+import { useSelector } from '../../services/store';
+import { getRepositoriesSelector } from '../../services/repSlice';
 import styles from './styles.module.scss';
 
-export default function App() {
+const App: FC = () => {
 	const repositories = useSelector(getRepositoriesSelector);
 
 	return (
@@ -30,4 +33,6 @@ export default function App() {
 			<Footer />
 		</Box>
 	);
-}
+};
+
+export default App;
