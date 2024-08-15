@@ -14,7 +14,7 @@ const initialState: TRepositoriesState = {
 	searchWord: '',
 	items: [],
 	totalCount: 0,
-	loading: true,
+	loading: false,
 	error: null,
 };
 

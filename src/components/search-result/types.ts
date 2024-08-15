@@ -8,6 +8,7 @@ export enum CellSort {
 
 export type TSearchResult = {
 	items: TRepository[];
+	isLoading: boolean;
 };
 
 export type TCellOrder = {

@@ -7,15 +7,13 @@ import { TSortType } from '../../utils/types';
 import { CellSort, TSearchResult, TCellOrder } from './types';
 import { useDispatch, useSelector } from '../../services/store';
 import {
-	getLoadingSelector,
 	getRepositoriesThunk,
 	getSearchWord,
 	getTotalCountSelector,
 } from '../../services/repSlice';
 import styles from './styles.module.scss';
 
-const SearchResult: FC<TSearchResult> = ({ items }) => {
-	const isLoading = useSelector(getLoadingSelector);
+const SearchResult: FC<TSearchResult> = ({ items, isLoading }) => {
 	const totalCountPage = useSelector(getTotalCountSelector);
 	const searchWord = useSelector(getSearchWord);
 	const dispatch = useDispatch();
