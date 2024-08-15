@@ -92,7 +92,7 @@ const ResultTable: FC<TResultTable> = ({
 				count={totalCountPage}
 				rowsPerPage={perPage}
 				page={page}
-				onPageChange={handleChangePage}
+				onPageChange={(_event, page) => handleChangePage(page)}
 				onRowsPerPageChange={handleChangePerPage}
 			/>
 		</TableContainer>

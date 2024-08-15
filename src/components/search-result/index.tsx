@@ -34,10 +34,7 @@ const SearchResult: FC<TSearchResult> = ({ items }) => {
 		setSortedBy(undefined);
 	}, [searchWord]);
 
-	const handleChangePage = (
-		event: React.MouseEvent<HTMLButtonElement> | null,
-		newPage: number
-	) => {
+	const handleChangePage = (newPage: number) => {
 		setPage(newPage);
 		dispatch(
 			getRepositoriesThunk({

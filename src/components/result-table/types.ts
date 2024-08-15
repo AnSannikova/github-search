@@ -18,10 +18,7 @@ export type TResultTable = {
 	sortedBy: TSortType | undefined;
 	cellOrder: TCellOrder;
 	onRowClick: React.Dispatch<React.SetStateAction<number>>;
-	handleChangePage: (
-		event: React.MouseEvent<HTMLButtonElement> | null,
-		page: number
-	) => void;
+	handleChangePage: (page: number) => void;
 	handleChangePerPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	onHeadCellClick: (sortType: TSortType) => void;
 };
