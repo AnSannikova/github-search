@@ -19,3 +19,7 @@ React, Redux, TypeScript, HTML, SCSS, Vite, MUI
 npm install
 npm run dev
 ```
+
+### Ссылка на проект
+
+https://ansannikova.github.io/github-search/
